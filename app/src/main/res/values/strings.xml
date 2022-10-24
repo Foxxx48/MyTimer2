@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyTimer2</string>
+
+    <string name="button_start">Start</string>
+    <string name="button_pause">Pause</string>
+    <string name="button_clear">Clear</string>
+    <string name="timer">0:00:00</string>
+</resources>
