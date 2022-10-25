@@ -24,26 +24,17 @@ class MainActivity : AppCompatActivity() {
         observeViewModels()
 
         binding.btnStart.setOnClickListener {
-            viewModel.isRunning = true
-
-
-
-
+            viewModel.setStart()
         }
 
         binding.btnStop.setOnClickListener {
-            viewModel.isRunning = false
-
-
-
+            viewModel.setPause()
         }
+
 
         binding.btnClear.setOnClickListener {
-            viewModel.isRunning = false
-            viewModel.sec = 0
+            viewModel.setClear()
         }
-
-
     }
 
     private fun observeViewModels() {

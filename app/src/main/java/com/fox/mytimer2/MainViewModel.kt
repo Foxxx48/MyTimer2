@@ -9,29 +9,18 @@ import java.util.*
 
 class MainViewModel: ViewModel() {
 
-    var sec = 0
-    var isRunning = false
-
-    private val _state = MutableLiveData<State>()
-    val state: LiveData<State>
-        get() = _state
-
-    private val _seconds = MutableLiveData<Int>()
-    val seconds: LiveData<Int>
-        get() = _seconds
+    private var sec = 0
+    private var isRunning = false
 
     private val _time = MutableLiveData<String>()
     val time: LiveData<String>
         get() = _time
 
-     fun runTimer() {
-
-
-
-        val handler = Handler().apply {
+    fun runTimer() {
+         MyHandler.apply {
             post(object : Runnable {
                 override fun run() {
-                    myLog("Runnable is run")
+//                    myLog("Runnable is run")
                     val hours = sec / 3600
                     val minutes = (sec % 3600) / 60
                     val secs = sec % 60
@@ -40,21 +29,32 @@ class MainViewModel: ViewModel() {
                         String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs)
                     _time.value = time
 
-                    myLog("$time")
+                    myLog(time)
 
                     if (isRunning) {
                         sec++
-
                     }
                     postDelayed(this, 1000)
+                    myLog("Run № ${this.hashCode()}")
+                    myLog("Handler № ${MyHandler.hashCode()}")
                 }
+
             })
-        }
+         }
+
     }
 
-    fun changeRunningState(): Boolean {
-         isRunning = true
-        return isRunning
+   fun setStart() {
+       isRunning = true
+   }
+
+    fun setPause(){
+        isRunning = false
+    }
+
+   fun setClear() {
+        isRunning = false
+        sec = 0
     }
 
     private fun myLog(message: String) {
@@ -62,8 +62,6 @@ class MainViewModel: ViewModel() {
     }
 
     companion object {
-        private const val SECONDS = "seconds"
-        private const val IS_RUNNING = "isRunning"
         private const val MYAPP = "MyAPP"
     }
 
